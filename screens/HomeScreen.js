@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, Image, Modal, Pressable } from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  Image,
+  Modal,
+  Pressable
+} from 'react-native';
 import { fetchWordOfTheDay } from '../services/wordService';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [word, setWord] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showGreeting, setShowGreeting] = useState(true);
-
 
   useEffect(() => {
     const fetchWord = async () => {
@@ -22,61 +29,65 @@ export default function HomeScreen() {
     fetchWord();
   }, []);
 
-return (
-  <>
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={showGreeting}
-    >
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <Image source={require('../assets/waabooz.png')} style={styles.modalImage} />
-          <Text style={styles.modalText}>
-            Boozhoo! I'm Waabooz. Would you like me to show you how this app works, or skip for now?
-          </Text>
-          <View style={styles.modalButtons}>
-            <Pressable
-              style={styles.modalButton}
-              onPress={() => {
-                // Later: navigate to tutorial
-                setShowGreeting(false);
-              }}>
-              <Text style={styles.buttonText}>Yes, show me!</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.modalButton, styles.skipButton]}
-              onPress={() => setShowGreeting(false)}>
-              <Text style={styles.buttonText}>Skip for now</Text>
-            </Pressable>
+  return (
+    <>
+      {/* ✅ Modal greeting */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showGreeting}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Image source={require('../assets/waabooz.png')} style={styles.modalImage} />
+            <Text style={styles.modalText}>
+              Boozhoo! I'm Waabooz. Would you like me to show you how this app works, or skip for now?
+            </Text>
+            <View style={styles.modalButtons}>
+              <Pressable
+                style={styles.modalButton}
+                onPress={() => {
+                  setShowGreeting(false);
+                  navigation.navigate('Onboarding'); // ✅ Navigate to tutorial!
+                }}
+              >
+                <Text style={styles.buttonText}>Yes, show me!</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.modalButton, styles.skipButton]}
+                onPress={() => setShowGreeting(false)}
+              >
+                <Text style={styles.buttonText}>Skip for now</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
-      </View>
-    </Modal>
+      </Modal>
 
-    <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator size="large" color="#2196F3" />
-      ) : word ? (
-        <View style={styles.card}>
-          <Text style={styles.word}>{word.wordOjibwe}</Text>
-          <Text style={styles.translation}>Translation: {word.translation}</Text>
-          <Text style={styles.pronunciation}>Pronunciation: {word.pronunciation}</Text>
+      {/* ✅ Main word + mascot */}
+      <View style={styles.container}>
+        {loading ? (
+          <ActivityIndicator size="large" color="#2196F3" />
+        ) : word ? (
+          <View style={styles.card}>
+            <Text style={styles.word}>{word.wordOjibwe}</Text>
+            <Text style={styles.translation}>Translation: {word.translation}</Text>
+            <Text style={styles.pronunciation}>Pronunciation: {word.pronunciation}</Text>
+          </View>
+        ) : (
+          <Text>No word found for today.</Text>
+        )}
+
+        <View style={styles.rabbit}>
+          <Image source={require('../assets/waabooz.png')} style={styles.rabbitImage} />
+          <Text style={styles.rabbitText}>Waabooz will guide you here!</Text>
         </View>
-      ) : (
-        <Text>No word found for today.</Text>
-      )}
-
-      <View style={styles.rabbit}>
-        <Image source={require('../assets/waabooz.png')} style={styles.rabbitImage} />
-        <Text style={styles.rabbitText}>Waabooz will guide you here!</Text>
       </View>
-    </View>
-  </>
-);
+    </>
+  );
 }
 
-
+// ✅ Styles stay the same — perfect!
 const styles = StyleSheet.create({
   container: {
     padding: 20,
@@ -121,46 +132,46 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   modalContainer: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-},
-modalContent: {
-  backgroundColor: 'white',
-  padding: 20,
-  borderRadius: 10,
-  alignItems: 'center',
-  width: '80%',
-},
-modalImage: {
-  width: 120,
-  height: 120,
-  marginBottom: 15,
-},
-modalText: {
-  fontSize: 16,
-  textAlign: 'center',
-  marginBottom: 20,
-},
-modalButtons: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  width: '100%',
-},
-modalButton: {
-  flex: 1,
-  backgroundColor: '#2196F3',
-  padding: 10,
-  borderRadius: 5,
-  marginHorizontal: 5,
-  alignItems: 'center',
-},
-skipButton: {
-  backgroundColor: '#aaa',
-},
-buttonText: {
-  color: 'white',
-  fontWeight: 'bold',
-},
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    width: '80%',
+  },
+  modalImage: {
+    width: 120,
+    height: 120,
+    marginBottom: 15,
+  },
+  modalText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  modalButton: {
+    flex: 1,
+    backgroundColor: '#2196F3',
+    padding: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
+    alignItems: 'center',
+  },
+  skipButton: {
+    backgroundColor: '#aaa',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
