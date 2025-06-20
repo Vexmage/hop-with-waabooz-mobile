@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, Image, Modal, Pressable } from 'react-native';
 import { fetchWordOfTheDay } from '../services/wordService';
 
 export default function HomeScreen() {
   const [word, setWord] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showGreeting, setShowGreeting] = useState(true);
+
 
   useEffect(() => {
     const fetchWord = async () => {
@@ -20,7 +22,38 @@ export default function HomeScreen() {
     fetchWord();
   }, []);
 
-  return (
+return (
+  <>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={showGreeting}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          <Image source={require('../assets/waabooz.png')} style={styles.modalImage} />
+          <Text style={styles.modalText}>
+            Boozhoo! I'm Waabooz. Would you like me to show you how this app works, or skip for now?
+          </Text>
+          <View style={styles.modalButtons}>
+            <Pressable
+              style={styles.modalButton}
+              onPress={() => {
+                // Later: navigate to tutorial
+                setShowGreeting(false);
+              }}>
+              <Text style={styles.buttonText}>Yes, show me!</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.modalButton, styles.skipButton]}
+              onPress={() => setShowGreeting(false)}>
+              <Text style={styles.buttonText}>Skip for now</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Modal>
+
     <View style={styles.container}>
       {loading ? (
         <ActivityIndicator size="large" color="#2196F3" />
@@ -35,11 +68,14 @@ export default function HomeScreen() {
       )}
 
       <View style={styles.rabbit}>
-        <Text>🐇 Waabooz will guide you here!</Text>
+        <Image source={require('../assets/waabooz.png')} style={styles.rabbitImage} />
+        <Text style={styles.rabbitText}>Waabooz will guide you here!</Text>
       </View>
     </View>
-  );
+  </>
+);
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -70,8 +106,61 @@ const styles = StyleSheet.create({
   },
   rabbit: {
     marginTop: 20,
-    padding: 20,
+    alignItems: 'center',
+  },
+  rabbitImage: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+    marginBottom: 10,
+  },
+  rabbitText: {
+    padding: 10,
     backgroundColor: '#2196F3',
+    color: '#fff',
     borderRadius: 8,
   },
+  modalContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+},
+modalContent: {
+  backgroundColor: 'white',
+  padding: 20,
+  borderRadius: 10,
+  alignItems: 'center',
+  width: '80%',
+},
+modalImage: {
+  width: 120,
+  height: 120,
+  marginBottom: 15,
+},
+modalText: {
+  fontSize: 16,
+  textAlign: 'center',
+  marginBottom: 20,
+},
+modalButtons: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  width: '100%',
+},
+modalButton: {
+  flex: 1,
+  backgroundColor: '#2196F3',
+  padding: 10,
+  borderRadius: 5,
+  marginHorizontal: 5,
+  alignItems: 'center',
+},
+skipButton: {
+  backgroundColor: '#aaa',
+},
+buttonText: {
+  color: 'white',
+  fontWeight: 'bold',
+},
 });
