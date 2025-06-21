@@ -4,11 +4,10 @@ import {
   Text,
   ActivityIndicator,
   StyleSheet,
-  Image,
   Modal,
   Pressable,
-  ScrollView,
 } from 'react-native';
+import * as Animatable from 'react-native-animatable'; // ✅ for animations!
 import { fetchWordOfTheDay } from '../services/wordService';
 
 export default function HomeScreen({ navigation }) {
@@ -44,7 +43,13 @@ export default function HomeScreen({ navigation }) {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Image source={require('../assets/waabooz.png')} style={styles.modalImage} />
+            <Animatable.Image
+              animation="pulse"
+              easing="ease-in-out"
+              iterationCount="infinite"
+              source={require('../assets/waabooz.png')}
+              style={styles.modalImage}
+            />
             <Text style={styles.modalText}>
               Boozhoo! I'm Waabooz. Would you like me to show you how this app works, or skip for now?
             </Text>
@@ -84,7 +89,13 @@ export default function HomeScreen({ navigation }) {
         )}
 
         <View style={styles.rabbit}>
-          <Image source={require('../assets/waabooz.png')} style={styles.rabbitImage} />
+          <Animatable.Image
+            animation="pulse"
+            easing="ease-in-out"
+            iterationCount="infinite"
+            source={require('../assets/waabooz.png')}
+            style={styles.rabbitImage}
+          />
           <Text style={styles.rabbitText}>Waabooz will guide you here!</Text>
         </View>
 
@@ -112,38 +123,40 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-  flex: 1,
-  backgroundColor: '#F0F8FF',
-  padding: 20,
-  alignItems: 'center',
+    flex: 1,
+    backgroundColor: '#F0F8FF',
+    padding: 20,
+    alignItems: 'center',
   },
-card: {
-  borderWidth: 1,
-  borderColor: '#2196F3',
-  borderRadius: 12,
-  backgroundColor: '#fff',
-  padding: 20,
-  marginBottom: 30,
-  width: '100%',
-  alignItems: 'center',
-  elevation: 3, // for Android shadow
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.2,
-  shadowRadius: 3,
-},
+  card: {
+    borderWidth: 1,
+    borderColor: '#2196F3',
+    borderRadius: 12,
+    backgroundColor: '#fff',
+    padding: 20,
+    marginBottom: 30,
+    width: '100%',
+    alignItems: 'center',
+    elevation: 3, // Android shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
   word: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_700Bold',
   },
   translation: {
     fontSize: 20,
     marginTop: 10,
+    fontFamily: 'Poppins_400Regular',
   },
   pronunciation: {
     fontSize: 18,
     marginTop: 5,
     fontStyle: 'italic',
+    fontFamily: 'Poppins_400Regular',
   },
   rabbit: {
     marginTop: 20,
@@ -160,6 +173,7 @@ card: {
     backgroundColor: '#2196F3',
     color: '#fff',
     borderRadius: 8,
+    fontFamily: 'Poppins_400Regular',
   },
   modalContainer: {
     flex: 1,
@@ -210,18 +224,18 @@ card: {
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
-dayButton: {
-  paddingVertical: 10,
-  paddingHorizontal: 15,
-  margin: 5,
-  backgroundColor: '#ddd',
-  borderRadius: 20,
-},
-dayButtonSelected: {
-  backgroundColor: '#2196F3',
-},
-dayButtonText: {
-  color: '#000',
-  fontWeight: 'bold',
-},
+  dayButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    margin: 5,
+    backgroundColor: '#ddd',
+    borderRadius: 20,
+  },
+  dayButtonSelected: {
+    backgroundColor: '#2196F3',
+  },
+  dayButtonText: {
+    color: '#000',
+    fontWeight: 'bold',
+  },
 });
