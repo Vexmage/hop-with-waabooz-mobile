@@ -112,18 +112,26 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    alignItems: 'center',
+  flex: 1,
+  backgroundColor: '#F0F8FF',
+  padding: 20,
+  alignItems: 'center',
   },
-  card: {
-    borderWidth: 1,
-    borderColor: '#2196F3',
-    borderRadius: 8,
-    padding: 20,
-    marginBottom: 30,
-    width: '100%',
-    alignItems: 'center',
-  },
+card: {
+  borderWidth: 1,
+  borderColor: '#2196F3',
+  borderRadius: 12,
+  backgroundColor: '#fff',
+  padding: 20,
+  marginBottom: 30,
+  width: '100%',
+  alignItems: 'center',
+  elevation: 3, // for Android shadow
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 3,
+},
   word: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -202,17 +210,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
-  dayButton: {
-    padding: 10,
-    margin: 5,
-    backgroundColor: '#ddd',
-    borderRadius: 5,
-  },
-  dayButtonSelected: {
-    backgroundColor: '#2196F3',
-  },
-  dayButtonText: {
-    color: '#000',
-    fontWeight: 'bold',
-  },
+dayButton: {
+  paddingVertical: 10,
+  paddingHorizontal: 15,
+  margin: 5,
+  backgroundColor: '#ddd',
+  borderRadius: 20,
+},
+dayButtonSelected: {
+  backgroundColor: '#2196F3',
+},
+dayButtonText: {
+  color: '#000',
+  fontWeight: 'bold',
+},
 });
