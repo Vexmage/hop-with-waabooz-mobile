@@ -74,7 +74,7 @@ export default function HomeScreen({ navigation }) {
         </View>
       </Modal>
 
-      {/* ✅ Main word + mascot + day picker */}
+      {/* ✅ Main word + mascot + day picker + About */}
       <View style={styles.container}>
         {loading ? (
           <ActivityIndicator size="large" color="#2196F3" />
@@ -116,6 +116,15 @@ export default function HomeScreen({ navigation }) {
             </Pressable>
           ))}
         </View>
+
+        {/* ✅ About button */}
+        <Pressable
+          style={styles.aboutButton}
+          onPress={() => navigation.navigate('About')}
+        >
+          <Text style={styles.aboutButtonText}>About this App</Text>
+        </Pressable>
+
       </View>
     </>
   );
@@ -237,5 +246,17 @@ const styles = StyleSheet.create({
   dayButtonText: {
     color: '#000',
     fontWeight: 'bold',
+  },
+  aboutButton: {
+    marginTop: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: '#2196F3',
+    borderRadius: 8,
+  },
+  aboutButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontFamily: 'Poppins_400Regular',
   },
 });
