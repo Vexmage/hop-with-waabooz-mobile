@@ -21,6 +21,12 @@ export default function AboutScreen() {
       <Text style={styles.paragraph}>
         Keep learning, come back every day, and share a word with a friend or family member. 🧡🐇
       </Text>
+
+      <Text style={styles.heading}>About the Developer</Text>
+
+      <Text style={styles.paragraph}>
+        Joel Southall is a Web Developer, Graphic Designer, and Technologist with a Master's degree in Philosophy. An Ojibwe person with roots in Ontario, Canada; Miami, Florida; and Oregon, Joel is currently building software in Springfield, Oregon, with a focus on community, culture, and education.
+      </Text>
     </ScrollView>
   );
 }
